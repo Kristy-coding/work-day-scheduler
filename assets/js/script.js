@@ -31,10 +31,12 @@ var hourUpdater = function(){
 
 
         //  loop through the time block id and get the string value of hour (get rid of "hour-" by replacing with an empty string)
+
         var timeBlockHour = timeBlockId.replace("hour-", '')
 
-        // convert to mility time by adding + 12  when needed and then turn timeBlockHours into integers values  
+        // convert to mility time by adding + 12  when needed and then turn timeBlockHours into integer values  
         if (timeBlockHour < 9) {
+
             timeBlockHour = parseInt(timeBlockHour) + 12 
         }
         else {
@@ -45,54 +47,42 @@ var hourUpdater = function(){
 
         if (timeBlockHour === parseInt(currentHour)){
 
-            // addClass "present" to closest text area
-            console.log("this is the current hour");
+            // addClass "present" to corresponding text area
 
-             var hourId = "#" + JSON.stringify(timeBlockHour)
-
-            $(hourId).addClass("present")
-
-            or 
-
-            var presentTimeBlock = document.getElementById(stringify(timeBlockHour))
-            $(presentTimeBlock).addClass("present")
-
-
-            //or 
-
-            //var myDomElement = document.getElementById( "foo" ); // A plain DOM element.
- 
-            //$( myDomElement ).find( "a" );  
-
-            //document.getElementById(stringify(timeBlockHour))
-           // console.log(hourId); 
-
-            //$(hourId textarea).addClass
-
-            //document.querySelector(`${idS} textarea`).value
-
-
-
-
-            //sibling selector 
-
-            //$(hourId + textarea).addClass
+            var presentTimeBlock = document.getElementById(JSON.stringify(timeBlockHour));
+            
+            $(presentTimeBlock).addClass("present");
 
         }
 
-        if (timeBlockHour > currentHour) {
+        else if (timeBlockHour > currentHour) {
         
-            // addClass "future" to closest text area 
+            // addClass "future" to corresponding text area 
+
             console.log ("this is the future");
+
+            var presentTimeBlock = document.getElementById(JSON.stringify(timeBlockHour));
+            
+            $(presentTimeBlock).addClass("future");
 
         }
         else{
-            //leave as is??
+
+            return;
+            
         }
     }
 };
 
 hourUpdater();
+
+// use setInterval to run/ refresh hourUpdater() every 30 min (so if user leaves the app open on their desktop it will update with out haveing to refresh the browser)
+
+setInterval(function(){
+    hourUpdater();
+}, 30000)
+
+
 
    
 
@@ -111,7 +101,7 @@ $('.saveBtn').on('click', function(event) {
      event.preventDefault(); 
 
      // Get the task "value" from the textbox and store it as a variable using `.val()` and `.trim()`
-     var task = $("textarea")
+     var task = $( timeBlocks, "textarea")
      .val()
      .trim()
      
@@ -121,6 +111,6 @@ $('.saveBtn').on('click', function(event) {
 
     // save the tasks to local storage 
     // We need to use JSON.stringify to turn the list from an array into a string
-     localStorage.setItem('taskList', JSON.stringify(taskList));
+     localStorage.setItem('taskList', JSON.stringify(task));
 
  });
