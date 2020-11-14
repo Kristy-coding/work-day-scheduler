@@ -1,6 +1,5 @@
 
 // get the current day and display it on the top of the calendar
-// have the current day refresh every 30 min (if the user leaves their monitor open)
 
 var currentDay = document.querySelector("#currentDay");
 
@@ -17,6 +16,7 @@ console.log(timeBlocks);
 var currentHour = moment().hour();
 console.log(currentHour);
 
+tasks = []
 
 
 var hourUpdater = function(){
@@ -76,33 +76,66 @@ var hourUpdater = function(){
 
 hourUpdater();
 
-   
-
- //Declare a 'tasklist' variable that holds the parsed taskList items retrieved from 'localStorage'
-// If there is nothing in 'localStorage', set the 'taskList' to an empty array
 
 
-var taskList = JSON.parse(localStorage.getItem('taskList')) || []; 
+ //Declare a 'tasks' variable that holds the parsed task items retrieved from 'localStorage'
+// If there is nothing in 'localStorage', set the 'tasks' to an empty array
 
+var loadTasks = function() {
+
+    var tasks = JSON.parse(localStorage.getItem('tasks'))
+    
+    if(!tasks) {
+        tasks = []
+    }
+
+};
+
+function renderTasks(tasks) {
+    // Empties out the html
+    //$('#to-dos').empty();
+
+    // Iterates over the tasks 'array'
+    for (var i = 0; i < tasks.length; i++) {
+      // Creates a new variable 'taskItem' that will hold a "<p>" tag
+      // Sets the `taskItem` item's value as text of this <p> element
+      var taskItem = $('<p>');
+      
+      taskItem.text(tasks[i]);
+
+      // Add taskItem to textarea 
+      $('.textarea').append(taskItem);
+    }
+  };
 
 
 
 //  when the user enters text and clicks the save icon tasks are saved to local storage  and persist when the user refreshes the page 
+//var saveTasks = function() {
 
-$('.saveBtn').on('click', function(event) {
-     event.preventDefault(); 
+    $(".saveBtn").on("click", function() {
 
-     // Get the task "value" from the textbox and store it as a variable using `.val()` and `.trim()`
-     var task = $( timeBlocks, "textarea")
-     .val()
-     .trim()
-     
+        var userInput = $(this).siblings(".textarea").val()
+
+        //var time = $(this).parent().attr("id")
+
+        tasks.push(userInput);
+
+        localStorage.setItem('tasks', JSON.stringify(tasks))
+    });
+
 
     // add the task to taskList array 
-        taskList.push(task);
+    //tasks.push(userInput);
 
     // save the tasks to local storage 
     // We need to use JSON.stringify to turn the list from an array into a string
-     localStorage.setItem('taskList', JSON.stringify(task));
+    //localStorage.setItem('key', JSON.stringify(value));
 
- });
+    loadTasks();
+
+    renderTasks();
+ 
+
+
+
