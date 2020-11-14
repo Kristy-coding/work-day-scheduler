@@ -16,7 +16,7 @@ console.log(timeBlocks);
 var currentHour = moment().hour();
 console.log(currentHour);
 
-tasks = []
+var tasks = []
 
 
 var hourUpdater = function(){
@@ -66,17 +66,11 @@ var hourUpdater = function(){
             $(presentTimeBlock).addClass("future");
 
         }
-        else{
-
-            return;
-            
-        }
     }
 };
 
+
 hourUpdater();
-
-
 
  //Declare a 'tasks' variable that holds the parsed task items retrieved from 'localStorage'
 // If there is nothing in 'localStorage', set the 'tasks' to an empty array
@@ -91,51 +85,30 @@ var loadTasks = function() {
 
 };
 
-function renderTasks(tasks) {
-    // Empties out the html
-    //$('#to-dos').empty();
-
-    // Iterates over the tasks 'array'
-    for (var i = 0; i < tasks.length; i++) {
-      // Creates a new variable 'taskItem' that will hold a "<p>" tag
-      // Sets the `taskItem` item's value as text of this <p> element
-      var taskItem = $('<p>');
-      
-      taskItem.text(tasks[i]);
-
-      // Add taskItem to textarea 
-      $('.textarea').append(taskItem);
-    }
-  };
+loadTasks();
 
 
 
 //  when the user enters text and clicks the save icon tasks are saved to local storage  and persist when the user refreshes the page 
 //var saveTasks = function() {
 
+
+
     $(".saveBtn").on("click", function() {
 
         var userInput = $(this).siblings(".textarea").val()
 
-        //var time = $(this).parent().attr("id")
-
         tasks.push(userInput);
 
-        localStorage.setItem('tasks', JSON.stringify(tasks))
+        localStorage.setItem('tasks', JSON.stringify(userInput))
+
+    
+        
+
     });
 
 
-    // add the task to taskList array 
-    //tasks.push(userInput);
-
-    // save the tasks to local storage 
-    // We need to use JSON.stringify to turn the list from an array into a string
-    //localStorage.setItem('key', JSON.stringify(value));
-
-    loadTasks();
-
-    renderTasks();
- 
 
 
+   
 
