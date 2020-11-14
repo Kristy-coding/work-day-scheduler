@@ -14,7 +14,7 @@ var timeBlocks = Array.from(document.querySelectorAll(".time-block"))
 
 console.log(timeBlocks);
 
-var currentHour = moment().hour()
+var currentHour = moment().hour();
 console.log(currentHour);
 
 
@@ -26,7 +26,7 @@ var hourUpdater = function(){
     for (var i = 0; i < timeBlocks.length; i++){
 
 
-        // select the hour id 
+        // select the hour id and loop through 
         var timeBlockId =timeBlocks[i].firstElementChild.id;
 
 
@@ -46,13 +46,45 @@ var hourUpdater = function(){
         if (timeBlockHour === parseInt(currentHour)){
 
             // addClass "present" to closest text area
-            console.log("this is the current hour"); 
+            console.log("this is the current hour");
+
+             var hourId = "#" + JSON.stringify(timeBlockHour)
+
+            $(hourId).addClass("present")
+
+            or 
+
+            var presentTimeBlock = document.getElementById(stringify(timeBlockHour))
+            $(presentTimeBlock).addClass("present")
+
+
+            //or 
+
+            //var myDomElement = document.getElementById( "foo" ); // A plain DOM element.
+ 
+            //$( myDomElement ).find( "a" );  
+
+            //document.getElementById(stringify(timeBlockHour))
+           // console.log(hourId); 
+
+            //$(hourId textarea).addClass
+
+            //document.querySelector(`${idS} textarea`).value
+
+
+
+
+            //sibling selector 
+
+            //$(hourId + textarea).addClass
+
         }
 
         if (timeBlockHour > currentHour) {
         
             // addClass "future" to closest text area 
             console.log ("this is the future");
+
         }
         else{
             //leave as is??
