@@ -76,14 +76,6 @@ var hourUpdater = function(){
 
 hourUpdater();
 
-// use setInterval to run/ refresh hourUpdater() every 30 min (so if user leaves the app open on their desktop it will update with out haveing to refresh the browser)
-
-setInterval(function(){
-    hourUpdater();
-}, 30000)
-
-
-
    
 
  //Declare a 'tasklist' variable that holds the parsed taskList items retrieved from 'localStorage'
