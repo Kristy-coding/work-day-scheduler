@@ -11,6 +11,8 @@ currentDay.textContent = currentTime.format("dddd, MMMM Do");
 
 var timeBlocks = Array.from(document.querySelectorAll(".time-block"))
 
+var textareaArray = Array.from(document.querySelectorAll(".textarea"));
+
 console.log(timeBlocks);
 
 var currentHour = moment().hour();
@@ -77,10 +79,23 @@ hourUpdater();
 
 var loadTasks = function() {
 
-    var tasks = JSON.parse(localStorage.getItem('tasks'))
+    tasks = localStorage.getItem('tasks')
     
-    if(!tasks) {
+    if(tasks === null) {
         tasks = []
+    }
+    else{
+         tasks = JSON.parse(tasks);
+    }
+
+    // loop through the tasks array and render the items in local storage to textarea
+
+    for (var i = 0; i < tasks.length; i++){
+
+        
+    // grab the textareaArray loop through textarea array and set the text equal to tasks [i]    
+     $(textareaArray[i]).text(tasks[i]);
+
     }
 
 };
@@ -88,11 +103,7 @@ var loadTasks = function() {
 loadTasks();
 
 
-
-//  when the user enters text and clicks the save icon tasks are saved to local storage  and persist when the user refreshes the page 
-//var saveTasks = function() {
-
-
+//  when the user clicks the save icon tasks are saved to local storage  
 
     $(".saveBtn").on("click", function() {
 
@@ -100,14 +111,9 @@ loadTasks();
 
         tasks.push(userInput);
 
-        localStorage.setItem('tasks', JSON.stringify(userInput))
-
-    
-        
+        localStorage.setItem('tasks', JSON.stringify(tasks))    
 
     });
-
-
 
 
    
